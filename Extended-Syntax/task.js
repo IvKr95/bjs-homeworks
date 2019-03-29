@@ -16,7 +16,9 @@ function getResult(a,b,c){
     
     if(d < 0) {
         console.log("Корней нет");
-        return "Корней нет";
+        //Возвращаем пустой массив или null для дальнейшего использования в коде
+        return [];
+        // return null;
     } else if(d === 0) {
         let x = (-b) / (2*a);
         console.log(x);
@@ -42,29 +44,36 @@ function askDrink(name,dateOfBirthday){
     let currentDate = new Date();
     let userAge = currentDate.getFullYear() - dateOfBirthday.getFullYear();
 
+    let responses = [`Не желаете ли олд-фэшн, ${name}?`,
+                    `Сожалею, ${name}, но я не могу вам 
+                    продать алкоголь. Зато могу предложить
+                    вам замечательный клюквенный компот!`];
+
     if (userAge >= 18) {
-        console.log(`Не желаете ли олд-фэшн, ${name}?`);
-        return `Не желаете ли олд-фэшн, ${name}?`;
+        console.log(responses[0]);
+        return responses[0];
     } else {
-        console.log(`Сожалею, ${name}, но я не могу вам продать алкоголь. 
-                    Зато могу предложить вам замечательный клюквенный компот!`);
-        return `Сожалею, ${name}, но я не могу вам продать алкоголь. 
-                Зато могу предложить вам замечательный клюквенный компот!`;
+        console.log(responses[1]);
+        return responses[1];
     };
 }
 
 function calculateAverageRating(){
-    let marks = window.marks.value.split("").map(Number);
+    //.map(Number) преобразует все элементы в цисла
+    let marks = window.marks.value.split("").map(Number).filter(n => {
+        return !isNaN(n) && n > 0;
+    });
     let averageMark = getAverageMark(marks);
     window.averageMark.textContent = averageMark;
 }
 
 function getAverageMark(marks){
     // код для задачи №3 писать здесь
-    let counter = 0,
-        averageMark;
+    let counter = 0;
+    //Задаем максимальную длинну массива оценок
+    const maxLengthOfArr = 5;
 
-    if(marks.length > 5) {
+    if(marks.length > maxLengthOfArr) {
         console.log(`Kоличество оценок больше 5`);
         marks.splice(5);
     };
@@ -72,8 +81,8 @@ function getAverageMark(marks){
     for(let mark of marks) {
         counter += mark;
     };
-
-    averageMark = counter / marks.length;
+    //Высчитываем среднюю оценку по всем предметам
+    const averageMark = counter / marks.length;
 
     return averageMark;
 }
