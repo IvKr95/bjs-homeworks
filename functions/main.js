@@ -24,48 +24,45 @@ function getSolutions( a, b, c ) {
 };
 
 function showSolutionsMessage( a = 0, b = 0, c = 0 ) {
-    let result = getSolutions(a, b, c);
+    let result = getSolutions( a, b, c );
 
     console.log(`«Вычисляем корни квадратного уравнения 
                 ${a}x² + ${b}x + ${c}»`);
     console.log(`«Значение дискриминанта: ${result.D}»`);
 
-    if( result.D < 0) {
+    //если бы D не был передан в резалт
+
+    if( !result.roots ) {
         console.log('«Уравнение не имеет вещественных корней»');
-    } else if( result.D === 0) {
+    } else if( result.roots.length === 1 ) {
         console.log(`«Уравнение имеет один корень X₁ = ${result.roots}»`);
-    } else {
-        console.log(`«Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}»`)
+    } else if( result.roots.length === 2 ) {
+        console.log(`«Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}»`);
     };
 
 };
 
-//Second Task
+//Second Task доработать
 
 function getPersonData( secretData ) {
+    let name = getName(secretData);
 
-    function getName() {
-        let firstName = getFirstName(),
-            lastName = getLastName();
+    return { firstName: name[0], lastName: name[1] };
+};
 
-        function getFirstName() {
-            return secretData.aaa === 0 ? "Родриго" : "Эмильо";
-        };
-        function getLastName() {
-            return secretData.bbb === 0 ? "Родриго" : "Эмильо";
-        };
+function getName(secretData) {
+    let name = [];
 
-        return {firstName, lastName};
+    for ( let key in secretData ) {
+        secretData[key] === 0 ? name.push("Родриго") : name.push("Эмильо");
     };
 
-    let name = getName();
-
-    return { firstName: name.firstName, lastName: name.lastName };
+    return name;
 };
 
 // Check
 console.log( getPersonData({
-    aaa: 0,
+    aaa: 1,
     bbb: 1
 }));
 
@@ -73,27 +70,36 @@ console.log( getPersonData({
 
 function getAverageScore( data ) {
     
-    let subjAverage = getSubjectAverage();
+    let subjAverage = {average: 0};
 
-    function getSubjectAverage() {
-        let score = {average: 0};
+    // for ( let subj in data ) {
+    //     subjAverage[subj] = data[subj].reduce(( prevMark, curMark ) =>
+    //         prevMark + curMark
+    //     ) / data[subj].length;
+    // };
 
-        for ( let subj in data ) {
-
-            score[subj] = data[subj].reduce(( prevMark, curMark ) =>
-
-                prevMark + curMark
-
-            ) / data[subj].length;
-        };
-        
-        return score;
+    for (let marks in data) {
+        subjAverage[marks] = getSubjAverage(data[marks]);
     };
 
     subjAverage.average = Object.values(subjAverage).reduce( ( a, b ) => a + b ) /
                             Object.keys(data).length;
     
     return subjAverage;
+};
+
+function getSubjAverage( marks ) {
+    let total = 0,
+        amountOfMarks = 0;
+
+    for ( let mark of marks ) {
+        total += mark;
+        amountOfMarks++;
+    };
+
+    const average = total / amountOfMarks;
+
+    return average;
 };
 
 console.log(getAverageScore({
