@@ -45,19 +45,17 @@ function showSolutionsMessage( a = 0, b = 0, c = 0 ) {
 //Second Task доработать
 
 function getPersonData( secretData ) {
-    let name = getName(secretData);
-
-    return { firstName: name[0], lastName: name[1] };
-};
-
-function getName(secretData) {
-    let name = [];
+    let result = [];
 
     for ( let key in secretData ) {
-        secretData[key] === 0 ? name.push("Родриго") : name.push("Эмильо");
+        result.push(getName(secretData[key]));
     };
 
-    return name;
+    return {firstName: result[0], lastName: result[1]};
+};
+
+function getName( key ) {
+    return key === 0 ? "Родриго" : "Эмильо";
 };
 
 // Check
@@ -89,15 +87,15 @@ function getAverageScore( data ) {
 };
 
 function getSubjAverage( marks ) {
-    let total = 0,
+    let totalSum = 0,
         amountOfMarks = 0;
 
     for ( let mark of marks ) {
-        total += mark;
+        totalSum += mark;
         amountOfMarks++;
     };
 
-    const average = total / amountOfMarks;
+    const average = totalSum / amountOfMarks;
 
     return average;
 };
