@@ -13,6 +13,19 @@ function calculateMortgage() {
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
 
+    let params = isDataCorrect(percent, contribution, amount);
+    let n = getPeriodOfMortgage( date );
+
+    const sumToReturn = amount - contribution;
+    const P = ( percent / 100 ) / 12;
+    const monthlyPay = sumToReturn * P * ( ( 1 + P )**n / ( ( 1 + P )**n - 1 ) );
+    const totalAmount = ( monthlyPay * n ).toFixed(2);
+    
+    console.log( totalAmount );
+    return totalAmount;
+};
+
+function isDataCorrect( percent, contribution, amount) {
     let params = {
         percent,
         contribution,
@@ -31,20 +44,13 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
             };        
         };
     };
-    
-    const sumToReturn = amount - contribution;
-    const P = ( percent / 100 ) / 12;
-    let n = 12;
-    const monthlyPay = sumToReturn * P * ( ( 1 + P )**n / ( ( 1 + P )**n - 1 ) );
-    const totalAmount = ( monthlyPay * n );
-    
-    console.log(totalAmount);
-    return totalAmount;
+
+    return params;
 };
 
-// function isDataCorrect() {
-
-// };
+function getPeriodOfMortgage( date ) {
+    return (parseInt( date ) - new Date().getFullYear()) * 12;
+};
 
 function sayHello() {
     let name = window.personName.value;
@@ -54,6 +60,8 @@ function sayHello() {
 }
 
 function getGreeting(name) {
+    console.log(`Имя пользователя: ${checkName(name)}`);
+
     return `Привет, мир! Меня зовут ${checkName(name)}.`;
 };
 
