@@ -207,20 +207,20 @@ const log = new StudentLog( 'Олег Никифоров', {
     physics: [],
 });
 
-// console.log(log.getName());
-// log.addGrade(5, 'math');
-// log.addGrade(5, 'geometry');
-// log.addGrade(4, 'geometry');
-// log.addGrade(4, 'physics');
-// log.addGrade(25, 'math');
-// log.addGrade('отлично', 'geometry');
-// log.addGrade(2, 'geometry');
-// log.addGrade(4, 'physics');
-// log.addGrade(4, 'art');
-// console.log(log.getAverageBySubject('geometry'));
-// console.log(log.getAverageBySubject('algebra'));
-// console.log(log.getAverageBySubject('math'));
-// console.log(log.getAverageBySubject('physics')); 
-// console.log( log.getTotalAverage() );
+console.log(log.getName());
+log.addGrade(5, 'math');
+log.addGrade(5, 'geometry');
+log.addGrade(4, 'geometry');
+log.addGrade(4, 'physics');
+log.addGrade(25, 'math');
+log.addGrade('отлично', 'geometry');
+log.addGrade(2, 'geometry');
+log.addGrade(4, 'physics');
+log.addGrade(4, 'art');
+console.log(log.getAverageBySubject('geometry'));
+console.log(log.getAverageBySubject('algebra'));
+console.log(log.getAverageBySubject('math'));
+console.log(log.getAverageBySubject('physics')); 
+console.log( log.getTotalAverage() );
 
 
