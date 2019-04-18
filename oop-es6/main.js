@@ -128,7 +128,7 @@ class Arm {
     }
 
     getDamage () {
-        if( this.durability >= 0.3*this.initDurability ) {
+        if( this.durability >= 0.3 * this.initDurability ) {
             return this.attack;
         } else if( this.durability === 0 ){
             return 0;
@@ -143,8 +143,9 @@ class Arm {
 };
 
 class Sword extends Arm {
-    constructor (range) {
-        super(range);
+    constructor () {
+        super();
+        this.range = 1;
         this.name = 'Меч';
         this.attack = 25;
         this.durability = 500;
@@ -153,8 +154,9 @@ class Sword extends Arm {
 };
 
 class Knife extends Arm {
-    constructor (range) {
-        super(range);
+    constructor () {
+        super();
+        this.range = 1;
         this.name = 'Нож';
         this.attack = 5;
         this.durability = 300;
@@ -185,8 +187,10 @@ class Bow extends Arm {
 };
 
 class LongBow extends Bow {
-    constructor (durability, initDurability) {
-        super( durability, initDurability );
+    constructor () {
+        super();
+        this.durability = 200;
+        this.initDurability = 200;
         this.name = 'Длинный лук';
         this.attack = 15;
         this.range = 4;
@@ -194,8 +198,9 @@ class LongBow extends Bow {
 };
 
 class Poleaxe extends Sword {
-    constructor (range) {
-        super(range);
+    constructor () {
+        super();
+        this.range = 1;
         this.name = 'Секира';
         this.attack = 27;
         this.durability = 800;
@@ -204,8 +209,10 @@ class Poleaxe extends Sword {
 };
 
 class StormStaff extends Staff {
-    constructor ( durability, initDurability ) {
-        super( durability, initDurability );
+    constructor () {
+        super();
+        this.durability = 300;
+        this.initDurability = 300;
         this.name = 'Посох Бури';
         this.attack = 10;
         this.range = 3;
@@ -227,15 +234,14 @@ function testIt ( weapons ) {
     const damage = 210;
 
     for ( let weapon of weapons ) {
-        const weaponStats = weapon;
-        console.log(`Название оружия: ${weaponStats.name}`);
-        console.log(`Дальность: ${weaponStats.range}`);
-        console.log(`Прочность: ${weaponStats.durability}`);
-        console.log(`Уровень аттаки до нанесения повреждения ${damage}: ${weaponStats.getDamage()}`);
-        weaponStats.takeDamage(damage);
-        console.log(`Уровень аттаки после нанесенного повреждения ${damage}: ${weaponStats.getDamage()}`);
-        console.log(`Прочность: ${weaponStats.durability}`);
-        console.log(`Оружие сломано? -${weaponStats.isBroken()}-`);
+        console.log(`Название оружия: ${weapon.name}`);
+        console.log(`Дальность: ${weapon.range}`);
+        console.log(`Прочность: ${weapon.durability}`);
+        console.log(`Уровень аттаки до нанесения повреждения ${damage}: ${weapon.getDamage()}`);
+        weapon.takeDamage(damage);
+        console.log(`Уровень аттаки после нанесенного повреждения ${damage}: ${weapon.getDamage()}`);
+        console.log(`Прочность: ${weapon.durability}`);
+        console.log(`Оружие сломано? -${weapon.isBroken()}-`);
     };
 };
 
