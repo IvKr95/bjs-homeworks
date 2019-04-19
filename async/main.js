@@ -4,26 +4,32 @@ function setDailyRhythm ( wakeUpTime, bedTime ) {
     
     const checkWakeUp = setAlarm( wakeUpTime, goodMorning ),
             checkSleepTime = setAlarm( bedTime, goodNight );
+    
 
     let wakeIntId = setInterval(() => {
-        checkWakeUp(currentTime)
-        clearInterval(wakeIntId);
+        checkWakeUp( currentTime, wakeIntId );
     }, 1000);
 
     let sleepIntId = setInterval(() => {
-        checkSleepTime(currentTime);
-        clearInterval(sleepIntId);
+        checkSleepTime( currentTime, sleepIntId );
     }, 1000);
 };
 
 function setAlarm ( time, callback ) {
-    return systemTime => {
-        if( systemTime === time ) callback();
-        return;
+    return ( systemTime, intId ) => {
+        
+        if( systemTime === time ) {
+            clearInterval(intId);
+            return callback();
+        };
     };
 };
 
 const goodMorning = () => console.log('Доброе утро!');
 const goodNight = () => console.log('Спокойной ночи!');
 
-setDailyRhythm('16:12', '16:13');
+setDailyRhythm('14:11', '14:10');
+
+
+
+
